@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Coś na głód</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+  <div
+    [ngClass]="isLoading ? 'hungry__container' : 'padding-top'"
+    class="d-flex flex-column align-items-center mb-4"
+  >
+    <h2>Głodny?</h2>
+    <button class="btn btn-primary mt-4 mb-4" (click)="getRandomMeal()">
+      Wybierz sobie coś 🍔
+    </button>
+    <h4 class="mb-3">Jak jesteś wybredny to masz więcej opcji:</h4>
+    <div class="container">
+      <div class="row ">
+
+        <div class="col-12">
+
+        </div>
+
+      </div>
+    </div>
+    <div class="emoji__container">
+      <div (click)="GetMealByCategory('Starter')"><span>Przekąska</span>🥚</div>
+      <div (click)="GetMealByCategory('Seafood')"><span>Owoce morza</span>🐟</div>
+      <div (click)="GetMealByCategory('Meat')"><span>Mięso</span>🥩</div>
+      <div (click)="GetMealByCategory('Pasta')"><span>Makaron</span>🍝</div>
+      <div (click)="GetMealByCategory('Vegetarian')">
+        <span>Wegetariańskie</span>🥗
+      </div>
+      <div (click)="GetMealByCategory('Vegan')"><span>Wegańskie</span>🥦</div>
+      <div (click)="GetMealByCategory('Side')"><span>Przystawka</span>🍟</div>
+      <div (click)="GetMealByCategory('Dessert')"><span>Deser</span>🧁</div>
+      <div (click)="GetMealByCategory('Breakfast')">
+        <span>Śniadanie</span>🥐
+      </div>
+      <div id="target" (click)="GetMealByCategory('Miscellaneous')">
+        <span>Inne</span>🌮
+      </div>
+    </div>
+  </div>
+
+  <div class="row main__container" *ngIf="!isLoading">
+    <div class="col-12 col-md-5 flex-column">
+      <img class="w-100 mb-2" src="{{ meal.imgSrc }}" />
+      <p><strong>Kategoria: </strong>{{ meal.category }}</p>
+      <p><strong>Pochodzenie: </strong>{{ meal.area }}</p>
+      <p *ngIf="meal.tags"><strong>Tagi: </strong>{{ meal.tags }}</p>
+      <!-- Ingredients -->
+      <span class="ingredients-title">Skladniki:</span>
+      <ul>
+        <li *ngFor="let ingredient of meal.ingredients">{{ ingredient }}</li>
+      </ul>
+    </div>
+    <!-- Recipe -->
+    <div class="col-12 col-md-7 recipe__container">
+      <h2>{{ meal.title }}</h2>
+      <span>{{ meal.recipe }}</span>
+    </div>
+  </div>
+  <div class="row videoWrapper" *ngIf="!isLoading">
+    <iframe
+      width="420"
+      height="315"
+      [src]="safeUrl"
+      frameborder="0"
+      allowfullscreen
+    ></iframe>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</body>
+</html>
